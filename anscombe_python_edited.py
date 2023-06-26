@@ -59,4 +59,42 @@ end_time = timeit.default_timer()
 total_time = end_time - start_time
 
 print('Execution time : ', total_time, ' seconds')
+
+createScatter = True
+if createScatter:
+    # create scatter plots
+    fig = plt.figure()
+    set_I = fig.add_subplot(2, 2, 1)
+    set_I.scatter(anscombe['x1'],anscombe['y1'])
+    set_I.set_title('Set I')
+    set_I.set_xlabel('x1')
+    set_I.set_ylabel('y1')
+    set_I.set_xlim(2, 20)
+    set_I.set_ylim(2, 14)
+    set_II = fig.add_subplot(2, 2, 2)
+    set_II.scatter(anscombe['x2'],anscombe['y2'])
+    set_II.set_title('Set II')
+    set_II.set_xlabel('x2')
+    set_II.set_ylabel('y2')
+    set_II.set_xlim(2, 20)
+    set_II.set_ylim(2, 14)
+    set_III = fig.add_subplot(2, 2, 3)
+    set_III.scatter(anscombe['x3'],anscombe['y3'])
+    set_III.set_title('Set III')
+    set_III.set_xlabel('x3')
+    set_III.set_ylabel('y3')
+    set_III.set_xlim(2, 20)
+    set_III.set_ylim(2, 14)
+    set_IV = fig.add_subplot(2, 2, 4)
+    set_IV.scatter(anscombe['x4'],anscombe['y4'])
+    set_IV.set_title('Set IV')
+    set_IV.set_xlabel('x4')
+    set_IV.set_ylabel('y4')
+    set_IV.set_xlim(2, 20)
+    set_IV.set_ylim(2, 14)
+    plt.subplots_adjust(left=0.1, right=0.925, top=0.925, bottom=0.1,
+    wspace = 0.3, hspace = 0.4)
+    plt.savefig('fig_anscombe_Python.png', bbox_inches = 'tight', dpi=None,
+    facecolor='w', edgecolor='b', orientation='portrait', papertype=None,
+    format=None, transparent=True, pad_inches=0.25, frameon=None)
 # %%
