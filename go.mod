@@ -2,7 +2,10 @@ module github.com/weswest/msds431wk2
 
 go 1.19
 
-require github.com/stretchr/testify v1.8.4
+require (
+	github.com/montanaflynn/stats v0.7.1
+	github.com/stretchr/testify v1.8.4
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

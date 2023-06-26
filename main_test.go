@@ -1,45 +1,56 @@
+// This file contains tests for the regression calculations performed in the main.go file.
+// It includes benchmark tests for running all regressions and tests for individual regression results.
+
 package main
 
 import (
 	"math"
 	"testing"
 
+	"github.com/montanaflynn/stats"
 	"github.com/stretchr/testify/assert"
 )
 
+// BenchmarkRunAllRegressions benchmarks the performance of running all regressions.
 func BenchmarkRunAllRegressions(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		runAllRegressions(false)
+		produceAllResults()
 	}
 }
 
+// TestRegressionResults tests the regression results against expected values.
 func TestRegressionResults(t *testing.T) {
 	// Define the expected values for b0 and b1
-	expectedB0 := 3.0
-	expectedB1 := 0.5
+	interceptExpected := 3.0
+	slopeExpected := 0.5
+	data1, data2, data3, data4 := makeStatsData()
 
 	// Test regression 1
-	testRegression(t, 1, x1, y1, expectedB0, expectedB1)
+	testRegression(t, 1, data1, interceptExpected, slopeExpected)
 
 	// Test regression 2
-	testRegression(t, 2, x2, y2, expectedB0, expectedB1)
+	testRegression(t, 2, data2, interceptExpected, slopeExpected)
 
 	// Test regression 3
-	testRegression(t, 3, x3, y3, expectedB0, expectedB1)
+	testRegression(t, 3, data3, interceptExpected, slopeExpected)
 
 	// Test regression 4
-	testRegression(t, 4, x4, y4, expectedB0, expectedB1)
+	testRegression(t, 4, data4, interceptExpected, slopeExpected)
 }
 
-func testRegression(t *testing.T, rNum int, x []float64, y []float64, expectedB0, expectedB1 float64) {
+// testRegression performs the regression calculation and compares the results with the expected values.
+func testRegression(t *testing.T, regNum int, data []stats.Coordinate, interceptExpected, slopeExpected float64) {
 	// Run the regression
-	b0, b1 := runRegression(false, rNum, x, y)
+	intercept, slope, err := produceSlopeIntercept(regNum, data)
+	if err != nil {
+		t.Errorf("Regression %d failed: %v", regNum, err)
+	}
 
 	// Round the actual coefficients to compare with the expected values
-	b0Round := math.Round(b0*100) / 100
-	b1Round := math.Round(b1*100) / 100
+	interceptRound := math.Round(intercept*100) / 100
+	slopeRound := math.Round(slope*100) / 100
 
 	// Use the testify/assert package to perform assertions
-	assert.Equal(t, expectedB0, b0Round, "Incorrect value for b0 in regression %d", rNum)
-	assert.Equal(t, expectedB1, b1Round, "Incorrect value for b1 in regression %d", rNum)
+	assert.Equal(t, interceptExpected, interceptRound, "Incorrect value for Intercept in regression %d", regNum)
+	assert.Equal(t, slopeExpected, slopeRound, "Incorrect value for Slope in regression %d", regNum)
 }
