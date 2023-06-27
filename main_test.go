@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/montanaflynn/stats"
-	"github.com/stretchr/testify/assert"
 )
 
 // BenchmarkRunAllRegressions benchmarks the performance of running all regressions.
@@ -50,7 +49,12 @@ func testRegression(t *testing.T, regNum int, data []stats.Coordinate, intercept
 	interceptRound := math.Round(intercept*100) / 100
 	slopeRound := math.Round(slope*100) / 100
 
-	// Use the testify/assert package to perform assertions
-	assert.Equal(t, interceptExpected, interceptRound, "Incorrect value for Intercept in regression %d", regNum)
-	assert.Equal(t, slopeExpected, slopeRound, "Incorrect value for Slope in regression %d", regNum)
+	// Compare the actual and expected coefficients
+	if interceptRound != interceptExpected {
+		t.Errorf("Incorrect value for Intercept in regression %d. Expected: %f, Actual: %f", regNum, interceptExpected, interceptRound)
+	}
+
+	if slopeRound != slopeExpected {
+		t.Errorf("Incorrect value for Slope in regression %d. Expected: %f, Actual: %f", regNum, slopeExpected, slopeRound)
+	}
 }
