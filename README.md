@@ -17,6 +17,8 @@ The python and R scripts are provided for the purposes of execution time benchma
 
 The program is dependent on the montanaflynn/stats project.
 
+Note that msds431wk2 was compiled to run on a mac, but the course submission form won't let me submit it.  msds431wk2.exe was compiled to run on a Windows machine, but hasn't been tested for completeness.  Seeing as it was compiled from identical source I have to assume it is working.
+
 ## tl;dr: Let's not Use Go for Data Science
 
 The purpose of this assignment is to run linear regressions on four standard datasets using Go and compare the performance (e.g., time to execute) and the accuracy (e.g., regression coefficients) against similar work performed in Python and R.  This gets us in the mind of data scientists at an organization that wants to see employees using Go as their primary programming language, and allows us to provide a recommendation: should data scientists use Go?
